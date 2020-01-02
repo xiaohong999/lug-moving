@@ -27,8 +27,13 @@ app.post("/api/create-payment-intent", async (req, res) => {
 	}
 });
 
+const root = require("path").join(__dirname, "client", "build");
+app.use(express.static(root));
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname + "/client/build/index.html"));
+	res.sendFile("index.html", { root });
 });
+// app.get("*", (req, res) => {
+// 	res.sendFile(path.join(__dirname + "/client/build/index.html"));
+// });
 
 app.listen(port, () => console.log(`Node server listening on port ${port}!`));
