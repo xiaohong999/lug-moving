@@ -18,6 +18,11 @@ export const dateSelected = (vehicle, date, time) => ({
 	date: { date: date, time: time }
 });
 
+export const contactInfoSaved = info => ({
+	type: Type.CONTACT_INFO_SAVED,
+	info: info
+});
+
 export const setStep = value => ({
 	type: Type.SET_STEP,
 	value: value

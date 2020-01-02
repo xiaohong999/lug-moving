@@ -20,7 +20,7 @@ class PricePreview extends Component {
 	};
 
 	componentWillMount() {
-		this.props.setStep(5);
+		this.props.setStep(6);
 	}
 
 	componentDidMount() {

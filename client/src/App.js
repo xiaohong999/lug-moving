@@ -13,6 +13,7 @@ import CategorySelect from "./pages/booking/CategorySelect";
 import VehicleSelect from "./pages/booking/VehicleSelect";
 import TimeSelect from "./pages/booking/TimeSelect";
 import PricePreview from "./pages/booking/PricePreview";
+import ContactInfo from "./pages/booking/ContactInfo";
 
 const store = createStore(reducer);
 
@@ -29,6 +30,7 @@ function App() {
 							<Route exact path="/book/location" component={LocationSelect} />
 							<Route exact path="/book/vehicle" component={VehicleSelect} />
 							<Route exact path="/book/time" component={TimeSelect} />
+							<Route exact path="/book/contact" component={ContactInfo} />
 							<Route exact path="/book/preview" component={PricePreview} />
 						</Route>
 					</Switch>

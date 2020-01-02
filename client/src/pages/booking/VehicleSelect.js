@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import { Grid, withStyles, Button, Container } from "@material-ui/core";
+import { Grid, Button, Container } from "@material-ui/core";
 import Vehicle from "../../components/Vehicle";
 import { connect } from "react-redux";
 import { vehicleSelected, setStep } from "../../redux/actions";
-
-const styles = {
-	button: {
-		background: "var(--colorYellow)",
-		marginTop: 20,
-		padding: 14
-	}
-};
 
 class VehicleSelect extends Component {
 	onClickVehicle = vehicle => {
@@ -23,7 +15,7 @@ class VehicleSelect extends Component {
 	}
 
 	render() {
-		const { classes, vehicles, location } = this.props;
+		const { vehicles, location } = this.props;
 		return (
 			<Container maxWidth="md" style={{ marginBottom: 10 }}>
 				<Grid container justify="center" spacing={2}>
@@ -38,7 +30,7 @@ class VehicleSelect extends Component {
 						</Grid>
 					))}
 				</Grid>
-				<Button fullWidth className={classes.button}>
+				<Button fullWidth className="lug-btn" style={{ marginTop: 20 }}>
 					Continue
 				</Button>
 			</Container>
@@ -57,7 +49,4 @@ const mapDispatchToProps = dispatch => ({
 	setStep: value => dispatch(setStep(value))
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(withStyles(styles)(VehicleSelect));
+export default connect(mapStateToProps, mapDispatchToProps)(VehicleSelect);

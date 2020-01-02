@@ -24,7 +24,7 @@ option {
 html,
 body {
 	margin: 0;
-	background-color: var(--colorBg);
+	background-color: var(--colorWhite);
 }
 h3 {
 	margin: 10px 0;
@@ -32,17 +32,15 @@ h3 {
 /* category button */
 .category {
 	border-radius: 20px;
-	background: var(--colorWhite);
+	background: var(--colorBg);
 	justify-content: center;
 	cursor: pointer;
-	box-shadow: 0.01em 0.01em 0 var(--colorGray);
-	border: 2px solid var(--colorWhite);
+	box-shadow: 0 0 1px 1px var(--colorLightGray);
 }
 .category.selected,
 .category:hover {
 	background: var(--colorMain);
 	color: var(--colorBg);
-	border: 2px solid var(--colorWhite);
 }
 .category .icon {
 	height: 120px;
@@ -69,10 +67,10 @@ h3 {
 /* vehicle button*/
 .vehicle {
 	border-radius: 20px;
-	background: var(--colorWhite);
+	background: var(--colorBg);
 	justify-content: center;
 	cursor: pointer;
-	box-shadow: 0.01em 0.01em 0 var(--colorGray);
+	box-shadow: 0 0 1px 1px var(--colorLightGray);
 }
 .vehicle:hover,
 .vehicle.selected {
@@ -601,7 +599,7 @@ h3 {
 
 .location-drop-down > .normal {
 	padding: 10px 5px;
-	background: var(--colorWhite);
+	background: var(--colorBg);
 	color: var(--colorBlack);
 }
 @media screen and (max-width: 600px) {
@@ -662,4 +660,22 @@ h3 {
 }
 .checkout > .group > .row select {
 	padding: 0 5px;
+}
+
+.payment-success,
+.payment-failed {
+	padding: 10px;
+}
+.payment-success {
+	color: #080;
+}
+.payment-failed {
+	color: #e11;
+}
+
+/* Main Button */
+.lug-btn {
+	background: var(--colorMain) !important;
+	color: var(--colorWhite) !important;
+	padding: 12px !important;
 }

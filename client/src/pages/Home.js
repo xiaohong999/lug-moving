@@ -16,7 +16,7 @@ class Home extends Component {
 	render() {
 		const { categories } = this.props;
 		return (
-			<div className="home">
+			<div className="home" style={{ background: "var(--colorBg)" }}>
 				<div
 					className="bg"
 					style={{

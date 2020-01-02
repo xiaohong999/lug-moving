@@ -5,8 +5,8 @@ const titles = [
 	"Enter your pickup and destination",
 	"Select a vehicle",
 	"Select a time",
-	"Preview the price",
-	"Checkout"
+	"Contact Infomation",
+	"Preview the price"
 ];
 
 const initialCategories = [
@@ -82,6 +82,7 @@ const initialState = {
 	selectedLocation: null,
 	selectedVehicle: null,
 	selectedDate: null,
+	contactInfo: null,
 	price: 0,
 	title: titles[0],
 	step: 1
@@ -112,6 +113,12 @@ export default function reducer(state = initialState, action) {
 				...state,
 				selectedVehicle: action.vehicle,
 				selectedDate: action.date
+			};
+		}
+		case Types.CONTACT_INFO_SAVED: {
+			return {
+				...state,
+				contactInfo: action.info
 			};
 		}
 		case Types.SET_STEP: {

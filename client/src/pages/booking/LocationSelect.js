@@ -9,27 +9,9 @@ import { locationSelected, setStep } from "../../redux/actions";
 const styles = {
 	root: {
 		padding: "10px 20px",
-		background: "var(--colorWhite)",
+		background: "var(--colorBg)",
 		borderRadius: 10,
 		marginBottom: 16
-	},
-
-	topPanel: {
-		height: 120
-	},
-	panel: {
-		background: "var(--colorWhite)",
-		padding: 10,
-		display: "inline-flex",
-		alignItems: "center"
-	},
-	divider: {
-		height: 30,
-		marginRight: 20,
-		background: "var(--colorLightGray)"
-	},
-	button: {
-		background: "var(--colorYellow)"
 	}
 };
 
@@ -120,26 +102,6 @@ class LocationSelect extends Component {
 
 		return (
 			<div>
-				{/* <div className={classes.topPanel}>
-					<div className={classes.panel}>
-						<LocationField direction={0} placeSelected={this.pickupSelected} />
-						<Divider orientation="vertical" className={classes.divider} />
-						<LocationField
-							direction={1}
-							placeSelected={this.destinationSelected}
-						/>
-						<Button
-							className={classes.button}
-							size="large"
-							onClick={() => this.onClickContinue()}
-						>
-							Continue
-						</Button>
-					</div>
-					<Box mt={1}>
-						Distance : {Number.parseFloat(distance / 1000).toFixed(2)}km
-					</Box>
-				</div> */}
 				<Container maxWidth="md">
 					<Grid container justify="center" className={classes.root}>
 						<Grid item sm={5} xs={12} style={{ paddingRight: 20 }}>
@@ -157,10 +119,9 @@ class LocationSelect extends Component {
 						<Grid item sm={2} xs={12}>
 							<Button
 								fullWidth
+								className="lug-btn"
 								style={{
-									padding: 12,
-									marginTop: 8,
-									background: "var(--colorYellow)"
+									marginTop: 8
 								}}
 								onClick={this.onClickContinue}
 							>

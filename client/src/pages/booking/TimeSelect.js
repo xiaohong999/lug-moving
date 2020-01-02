@@ -130,7 +130,7 @@ class TimeSelect extends Component {
 			return;
 		}
 
-		this.props.history.push("/book/preview");
+		this.props.history.push("/book/contact");
 		this.props.dateSelected(
 			vehicles[selectedVehicleIndex],
 			days[selectedDayIndex],
@@ -239,14 +239,7 @@ class TimeSelect extends Component {
 					</Grid>
 				</Box>
 				<div style={{ margin: 4 }}>
-					<Button
-						fullWidth
-						style={{
-							padding: 12,
-							background: "var(--colorYellow)"
-						}}
-						onClick={this.onClickContinue}
-					>
+					<Button fullWidth className="lug-btn" onClick={this.onClickContinue}>
 						Continue
 					</Button>
 				</div>

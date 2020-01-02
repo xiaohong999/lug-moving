@@ -62,3 +62,17 @@ export function getDateString(date) {
 	console.log(date);
 	return dateString;
 }
+
+export function validEmail(value) {
+	if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
+		return true;
+	}
+	return false;
+}
+
+export function validPhone(value) {
+	if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
+		return true;
+	}
+	return false;
+}
