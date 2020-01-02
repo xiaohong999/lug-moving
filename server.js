@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
 
+const port = process.env.PORT || 4242;
+
 app.use(bodyParser.json());
 
 app.get("/api/stripe-public-key", (req, res) => {
@@ -29,4 +31,4 @@ app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
-app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
+app.listen(port, () => console.log(`Node server listening on port ${port}!`));
