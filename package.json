@@ -9,7 +9,7 @@
 		"server": "node server.js",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
 		"dev:server": "cd client && npm build && cd .. && npm run start",
-		"heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
 	"engines": {
 		"node": "^10.13.0"
