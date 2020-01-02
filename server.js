@@ -32,8 +32,5 @@ app.use(express.static(root));
 app.get("*", (req, res) => {
 	res.sendFile("index.html", { root });
 });
-// app.get("*", (req, res) => {
-// 	res.sendFile(path.join(__dirname + "/client/build/index.html"));
-// });
 
 app.listen(port, () => console.log(`Node server listening on port ${port}!`));
