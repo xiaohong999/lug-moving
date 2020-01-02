@@ -57,11 +57,15 @@ class CheckoutForm extends Component {
 
 	async handleSubmit(ev) {
 		ev.preventDefault();
+		console.log(this.props.price);
 
 		// Step 1: Create PaymentIntent over Stripe API
 		let intent = {
 			payment_method_types: ["card"],
-			amount: this.props.price * 100,
+			amount:
+				this.props.price && this.props.price > 0
+					? this.props.price * 100
+					: 10000,
 			currency: "usd"
 		};
 

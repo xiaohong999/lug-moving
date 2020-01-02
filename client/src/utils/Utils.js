@@ -59,7 +59,6 @@ export function getDateString(date) {
 	} else {
 		dateString = new Date(date.year, date.month, date.day).toDateString();
 	}
-	console.log(date);
 	return dateString;
 }
 
