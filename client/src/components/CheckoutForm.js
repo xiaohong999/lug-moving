@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-import { Button } from "@material-ui/core";
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle
+} from "@material-ui/core";
 import axios from "axios";
 import api from "../api";
 
@@ -21,7 +28,8 @@ class CheckoutForm extends Component {
 				disabled: false,
 				succeeded: false,
 				processing: false
-			}
+			},
+			dialogOpen: false
 		};
 
 		this.email = React.createRef();
@@ -31,6 +39,7 @@ class CheckoutForm extends Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onChangeCountry = this.onChangeCountry.bind(this);
+		this.onCloseDialog = this.onCloseDialog.bind(this);
 	}
 
 	componentDidMount() {
@@ -55,17 +64,23 @@ class CheckoutForm extends Component {
 		});
 	}
 
+	onCloseDialog() {
+		this.setState({
+			dialogOpen: false
+		});
+	}
+
 	async handleSubmit(ev) {
 		ev.preventDefault();
 
 		// Step 1: Create PaymentIntent over Stripe API
 		let intent = {
 			payment_method_types: ["card"],
-			// amount:
-			// 	this.props.price && this.props.price > 0
-			// 		? this.props.price * 100
-			// 		: 10000,
-			amount: this.props.price * 100,
+			amount:
+				this.props.price && this.props.price > 0
+					? this.props.price * 100
+					: 10000,
+			// amount: this.props.price * 100,
 			currency: "usd"
 		};
 
@@ -122,9 +137,9 @@ class CheckoutForm extends Component {
 									succeeded: true,
 									error: "",
 									metadata: payload.paymentIntent
-								}
+								},
+								dialogOpen: true
 							});
-							alert("Booking confirmed");
 							console.log("[PaymentIntent]", payload.paymentIntent);
 						}
 					});
@@ -141,70 +156,106 @@ class CheckoutForm extends Component {
 
 	render() {
 		const { price } = this.props;
-		const { countries, selectedCountry, payment } = this.state;
+		const { countries, selectedCountry, payment, dialogOpen } = this.state;
 		return (
-			<form onSubmit={this.handleSubmit}>
-				<div className="checkout">
-					<div className="price">
-						<div className="label">Price:</div>
-						<div className="value">${price}</div>
-					</div>
+			<div>
+				<form onSubmit={this.handleSubmit}>
+					<div className="checkout">
+						<div className="price">
+							<div className="label">Price:</div>
+							<div className="value">${price}</div>
+						</div>
 
-					<div className="group">
-						<div className="row">
-							<input
-								type="email"
-								placeholder="Email (optional)"
-								ref={this.email}
-							/>
+						<div className="group">
+							<div className="row">
+								<input
+									type="email"
+									placeholder="Email (optional)"
+									ref={this.email}
+								/>
+							</div>
 						</div>
+						<div className="group">
+							<div className="row">
+								<input
+									placeholder="Name on card (optional)"
+									ref={this.nameOnCard}
+								/>
+							</div>
+							<div className="row card">
+								<CardElement />
+							</div>
+						</div>
+						<div className="group">
+							<div className="row select">
+								<select
+									value={selectedCountry.code}
+									onChange={this.onChangeCountry}
+								>
+									{countries.map(country => (
+										<option key={country.code} value={country.code}>
+											{country.name}
+										</option>
+									))}
+								</select>
+							</div>
+							<div className="row">
+								<input placeholder="ZIP (optional)" ref={this.zipcode} />
+							</div>
+						</div>
+						<Button
+							type="submit"
+							fullWidth
+							className="lug-btn"
+							style={{
+								marginTop: 10
+							}}
+							disabled={payment.disabled}
+						>
+							{payment.processing ? "Processing…" : "Pay"}
+						</Button>
+						{payment.succeeded ? (
+							<div className="payment-success">Payment succeeded</div>
+						) : (
+							<div className="payment-failed">{payment.error}</div>
+						)}
 					</div>
-					<div className="group">
-						<div className="row">
-							<input
-								placeholder="Name on card (optional)"
-								ref={this.nameOnCard}
-							/>
-						</div>
-						<div className="row card">
-							<CardElement />
-						</div>
-					</div>
-					<div className="group">
-						<div className="row select">
-							<select
-								value={selectedCountry.code}
-								onChange={this.onChangeCountry}
-							>
-								{countries.map(country => (
-									<option key={country.code} value={country.code}>
-										{country.name}
-									</option>
-								))}
-							</select>
-						</div>
-						<div className="row">
-							<input placeholder="ZIP (optional)" ref={this.zipcode} />
-						</div>
-					</div>
-					<Button
-						type="submit"
-						fullWidth
-						className="lug-btn"
-						style={{
-							marginTop: 10
-						}}
-						disabled={payment.disabled}
-					>
-						{payment.processing ? "Processing…" : "Pay"}
-					</Button>
-					{payment.succeeded ? (
-						<div className="payment-success">Payment succeeded</div>
-					) : (
-						<div className="payment-failed">{payment.error}</div>
-					)}
-				</div>
-			</form>
+				</form>
+
+				<Dialog
+					open={dialogOpen}
+					onClose={this.onCloseDialog}
+					fullWidth
+					maxWidth="sm"
+				>
+					<DialogTitle>{"Booking confirmed"}</DialogTitle>
+					<DialogContent>
+						{payment.metadata ? (
+							<div style={{ marginBottom: 10 }}>
+								<div
+									style={{
+										marginBottom: 10,
+										color: "var(--colorMain)",
+										fontSize: 22,
+										fontWeight: 600
+									}}
+								>
+									Price : ${payment.metadata.amount / 100}
+								</div>
+								<div>
+									Created at:{" "}
+									{new Date(payment.metadata.created * 1000).toDateString()}
+								</div>
+							</div>
+						) : (
+							<div />
+						)}
+						<Button onClick={this.onCloseDialog} color="primary">
+							OK
+						</Button>
+					</DialogContent>
+				</Dialog>
+			</div>
 		);
 	}
 }
