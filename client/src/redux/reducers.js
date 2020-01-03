@@ -2,7 +2,7 @@ import * as Types from "./types";
 
 const titles = [
 	"Select a category",
-	"Enter your pickup and destination",
+	"Pickup and destination",
 	"Select a vehicle",
 	"Select a time",
 	"Contact Infomation",

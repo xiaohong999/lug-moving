@@ -16,10 +16,17 @@ const styles = {
 };
 
 class LocationSelect extends Component {
-	state = {
-		directions: null,
-		distance: 0
-	};
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			directions: null,
+			distance: 0,
+			mapOffset: 230
+		};
+
+		this.locationPanel = React.createRef();
+	}
 
 	componentWillMount() {
 		const { location, setStep } = this.props;
@@ -28,6 +35,15 @@ class LocationSelect extends Component {
 			pickup: location ? location.pickup : null,
 			destination: location ? location.destination : null
 		});
+	}
+
+	componentDidMount() {
+		if (this.locationPanel.current) {
+			console.log(this.locationPanel.current.offsetHeight);
+			this.setState({
+				mapOffset: this.locationPanel.current.offsetHeight + 142
+			});
+		}
 	}
 
 	showDirection = () => {
@@ -98,11 +114,11 @@ class LocationSelect extends Component {
 
 	render() {
 		const { classes } = this.props;
-		const { directions, pickup, destination, distance } = this.state;
-
+		const { directions, pickup, destination, distance, mapOffset } = this.state;
+		console.log(mapOffset);
 		return (
 			<div>
-				<Container maxWidth="md">
+				<Container maxWidth="md" ref={this.locationPanel}>
 					<Grid container justify="center" className={classes.root}>
 						<Grid item sm={5} xs={12} style={{ paddingRight: 20 }}>
 							<LocationField
@@ -139,7 +155,7 @@ class LocationSelect extends Component {
 					destination={destination ? destination.coordinate : null}
 					directions={directions}
 					width="100%"
-					height="calc(100vh - 230px)"
+					height={`calc(100vh - ${mapOffset}px)`}
 				/>
 			</div>
 		);

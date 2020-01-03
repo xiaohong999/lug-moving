@@ -57,7 +57,6 @@ class CheckoutForm extends Component {
 
 	async handleSubmit(ev) {
 		ev.preventDefault();
-		console.log(this.props.price);
 
 		// Step 1: Create PaymentIntent over Stripe API
 		let intent = {
