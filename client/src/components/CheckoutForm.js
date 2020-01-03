@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle
-} from "@material-ui/core";
+import { Button, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import axios from "axios";
 import api from "../api";
 
@@ -64,6 +57,40 @@ class CheckoutForm extends Component {
 		});
 	}
 
+	sendToServer() {
+		const { bookData, price } = this.props;
+		let pickupTime = new Date(
+			bookData.selectedDate.date.year,
+			bookData.selectedDate.date.month,
+			bookData.selectedDate.date.day,
+			bookData.selectedDate.time.from
+		);
+		axios
+			.post(process.env.REACT_APP_GETSWIFT_API_URL, {
+				apiKey: process.env.REACT_APP_GETSWIFT_API_KEY,
+				booking: {
+					deliveryInstructions: bookData.contactInfo.instructions,
+					pickupDetail: {
+						name: bookData.contactInfo.pickup.name,
+						phone: bookData.contactInfo.pickup.phone,
+						email: bookData.contactInfo.pickup.email,
+						address: bookData.selectedLocation.pickup.address
+					},
+					dropoffDetail: {
+						name: bookData.contactInfo.destination.name,
+						phone: bookData.contactInfo.destination.phone,
+						email: bookData.contactInfo.destination.email,
+						address: bookData.selectedLocation.destination.address
+					},
+					pickupTime: pickupTime,
+					customerFee: price
+				}
+			})
+			.then(result => {
+				console.log(result);
+			});
+	}
+
 	onCloseDialog() {
 		this.setState({
 			dialogOpen: false
@@ -76,11 +103,11 @@ class CheckoutForm extends Component {
 		// Step 1: Create PaymentIntent over Stripe API
 		let intent = {
 			payment_method_types: ["card"],
-			amount:
-				this.props.price && this.props.price > 0
-					? this.props.price * 100
-					: 10000,
-			// amount: this.props.price * 100,
+			// amount:
+			// 	this.props.price && this.props.price > 0
+			// 		? this.props.price * 100
+			// 		: 10000,
+			amount: this.props.price * 100,
 			currency: "usd"
 		};
 
@@ -128,7 +155,7 @@ class CheckoutForm extends Component {
 									processing: false
 								}
 							});
-							console.log("[error]", payload.error);
+							// console.log("[error]", payload.error);
 						} else {
 							this.setState({
 								payment: {
@@ -140,7 +167,9 @@ class CheckoutForm extends Component {
 								},
 								dialogOpen: true
 							});
-							console.log("[PaymentIntent]", payload.paymentIntent);
+
+							this.sendToServer();
+							// console.log("[PaymentIntent]", payload.paymentIntent);
 						}
 					});
 			})
@@ -231,7 +260,7 @@ class CheckoutForm extends Component {
 					<DialogTitle>{"Booking confirmed"}</DialogTitle>
 					<DialogContent>
 						{payment.metadata ? (
-							<div style={{ marginBottom: 10 }}>
+							<div style={{ marginBottom: 20 }}>
 								<div
 									style={{
 										marginBottom: 10,

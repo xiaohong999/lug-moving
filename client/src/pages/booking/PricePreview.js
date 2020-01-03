@@ -7,7 +7,7 @@ import { setStep } from "../../redux/actions";
 import { Container, Grid } from "@material-ui/core";
 import Map from "../../components/Map";
 import { FiCalendar } from "react-icons/fi";
-import { getDateString } from "../../utils/Utils";
+import { getDateString, getTimeString } from "../../utils/Utils";
 import CheckoutForm from "../../components/CheckoutForm";
 
 class PricePreview extends Component {
@@ -140,7 +140,9 @@ class PricePreview extends Component {
 									</div>
 									<div className="time">
 										{bookData.selectedDate
-											? `Arrive between ${bookData.selectedDate.time.from} - ${bookData.selectedDate.time.to}`
+											? `Arrive between ${getTimeString(
+													bookData.selectedDate.time.from
+											  )} - ${getTimeString(bookData.selectedDate.time.to)}`
 											: "Not selected"}
 									</div>
 								</div>
@@ -152,7 +154,7 @@ class PricePreview extends Component {
 							apiKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
 						>
 							<Elements>
-								<CheckoutForm price={price} />
+								<CheckoutForm bookData={bookData} price={price} />
 							</Elements>
 						</StripeProvider>
 					</Grid>

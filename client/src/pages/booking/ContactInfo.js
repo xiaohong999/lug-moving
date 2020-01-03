@@ -219,7 +219,7 @@ class ContactInfo extends Component {
 					<div style={styles.label}>Instructions</div>
 					<TextField
 						fullWidth
-						placeholder="Instruction here ..."
+						placeholder="Instructions here ..."
 						multiline
 						variant="outlined"
 						style={{ margin: "0 12px 20px 12px" }}

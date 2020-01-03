@@ -39,7 +39,6 @@ class LocationSelect extends Component {
 
 	componentDidMount() {
 		if (this.locationPanel.current) {
-			console.log(this.locationPanel.current.offsetHeight);
 			this.setState({
 				mapOffset: this.locationPanel.current.offsetHeight + 142
 			});
@@ -115,7 +114,6 @@ class LocationSelect extends Component {
 	render() {
 		const { classes } = this.props;
 		const { directions, pickup, destination, distance, mapOffset } = this.state;
-		console.log(mapOffset);
 		return (
 			<div>
 				<Container maxWidth="md" ref={this.locationPanel}>

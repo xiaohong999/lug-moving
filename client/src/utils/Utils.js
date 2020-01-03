@@ -62,6 +62,16 @@ export function getDateString(date) {
 	return dateString;
 }
 
+export function getTimeString(time) {
+	if (time === 12) {
+		return time + "pm";
+	}
+	if (time > 12) {
+		return time - 12 + "pm";
+	}
+	return time + "am";
+}
+
 export function validEmail(value) {
 	if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
 		return true;

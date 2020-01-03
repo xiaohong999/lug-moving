@@ -4,58 +4,59 @@ import { get30DaysFromNow } from "../../utils/Utils";
 import { connect } from "react-redux";
 import { dateSelected, setStep } from "../../redux/actions";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getTimeString } from "../../utils/Utils";
 
 class TimeSelect extends Component {
 	state = {
 		days: [],
 		times: [
 			{
-				from: "8am",
-				to: "9am"
+				from: 8,
+				to: 9
 			},
 			{
-				from: "9am",
-				to: "10am"
+				from: 9,
+				to: 10
 			},
 			{
-				from: "10am",
-				to: "11am"
+				from: 10,
+				to: 11
 			},
 			{
-				from: "11am",
-				to: "12pm"
+				from: 11,
+				to: 12
 			},
 			{
-				from: "12pm",
-				to: "1pm"
+				from: 12,
+				to: 13
 			},
 			{
-				from: "1pm",
-				to: "2pm"
+				from: 13,
+				to: 14
 			},
 			{
-				from: "2pm",
-				to: "3pm"
+				from: 14,
+				to: 15
 			},
 			{
-				from: "3pm",
-				to: "4pm"
+				from: 15,
+				to: 16
 			},
 			{
-				from: "4pm",
-				to: "5pm"
+				from: 16,
+				to: 17
 			},
 			{
-				from: "5pm",
-				to: "6pm"
+				from: 17,
+				to: 18
 			},
 			{
-				from: "6pm",
-				to: "7pm"
+				from: 18,
+				to: 19
 			},
 			{
-				from: "7pm",
-				to: "8pm"
+				from: 19,
+				to: 20
 			}
 		]
 	};
@@ -232,7 +233,7 @@ class TimeSelect extends Component {
 									onClick={this.onClickTime.bind(this, i)}
 									style={{ margin: 4 }}
 								>
-									{time.from} - {time.to}
+									{getTimeString(time.from)} - {getTimeString(time.to)}
 								</div>
 							</Grid>
 						))}
