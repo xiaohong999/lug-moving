@@ -679,3 +679,7 @@ h3 {
 	color: var(--colorWhite) !important;
 	padding: 12px !important;
 }
+.lug-btn:disabled {
+	opacity: 0.5;
+	cursor: none;
+}

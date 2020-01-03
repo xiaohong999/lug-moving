@@ -61,10 +61,11 @@ class CheckoutForm extends Component {
 		// Step 1: Create PaymentIntent over Stripe API
 		let intent = {
 			payment_method_types: ["card"],
-			amount:
-				this.props.price && this.props.price > 0
-					? this.props.price * 100
-					: 10000,
+			// amount:
+			// 	this.props.price && this.props.price > 0
+			// 		? this.props.price * 100
+			// 		: 10000,
+			amount: this.props.price * 100,
 			currency: "usd"
 		};
 
@@ -123,6 +124,7 @@ class CheckoutForm extends Component {
 									metadata: payload.paymentIntent
 								}
 							});
+							alert("Booking confirmed");
 							console.log("[PaymentIntent]", payload.paymentIntent);
 						}
 					});
@@ -192,8 +194,9 @@ class CheckoutForm extends Component {
 						style={{
 							marginTop: 10
 						}}
+						disabled={payment.disabled}
 					>
-						Pay
+						{payment.processing ? "Processing…" : "Pay"}
 					</Button>
 					{payment.succeeded ? (
 						<div className="payment-success">Payment succeeded</div>
