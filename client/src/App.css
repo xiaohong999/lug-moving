@@ -444,14 +444,14 @@ h3 {
 	padding: 0 20px;
 }
 .top-menu-lead img {
-	max-height: 50px;
+	max-height: 52px;
 }
 
 @media screen and (max-width: 600px) {
 	.top-menu-lead {
 		position: absolute;
 		top: 10px;
-		left: 10px;
+		left: 0;
 		float: none;
 	}
 	.top-menu-lead img {
