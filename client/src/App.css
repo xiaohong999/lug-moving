@@ -1,5 +1,6 @@
 :root {
-	--colorMain: #3a3973;
+	--colorMain: #062037;
+	--colorSecondary: #8bc648;
 	--colorBg: #f3f3f6;
 
 	--colorWhite: white;
@@ -359,6 +360,9 @@ h3 {
 	user-select: none;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 	margin: 0 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .top-menu a {
@@ -409,6 +413,7 @@ h3 {
 		padding: 40px 20px 20px 20px;
 		max-height: 0;
 		overflow: hidden;
+		display: block;
 	}
 
 	.top-menu > .menu {
@@ -436,21 +441,21 @@ h3 {
 }
 
 .top-menu-lead {
-	padding: 10px 30px 10px 10px;
-	color: white;
-	display: inline-flex;
-	font-family: "Permanent Marker";
-	font-size: 30px;
-	font-weight: bold;
-	text-shadow: 1px 1px black;
+	padding: 0 20px;
+}
+.top-menu-lead img {
+	max-height: 50px;
 }
 
 @media screen and (max-width: 600px) {
 	.top-menu-lead {
 		position: absolute;
-		top: 0;
+		top: 10px;
 		left: 10px;
 		float: none;
+	}
+	.top-menu-lead img {
+		max-height: 40px;
 	}
 }
 
@@ -682,4 +687,15 @@ h3 {
 .lug-btn:disabled {
 	opacity: 0.5;
 	cursor: none;
+}
+
+/* Text Field */
+.MuiFormLabel-root.Mui-focused {
+	color: var(--colorMain) !important;
+}
+.MuiInput-underline:after {
+	border-bottom: 2px solid var(--colorMain) !important;
+}
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+	border-color: var(--colorMain) !important;
 }

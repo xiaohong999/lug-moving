@@ -21,7 +21,7 @@ class Home extends Component {
 					className="bg"
 					style={{
 						backgroundImage:
-							"linear-gradient(-180deg, rgba(58, 57, 120, 0.3) 2%, rgba(58, 57, 120, 0.8) 40%, rgb(58, 57, 120) 80%, rgb(58, 57, 120)), url('images/bg.jpg')"
+							"linear-gradient(-180deg, rgba(6, 32, 55, 0.3) 2%, rgba(6, 32, 55, 0.8) 40%, rgb(6, 32, 55) 80%, rgb(6, 32, 55)), url('images/bg.jpg')"
 					}}
 				></div>
 				<div style={{ position: "relative" }} className="container">
