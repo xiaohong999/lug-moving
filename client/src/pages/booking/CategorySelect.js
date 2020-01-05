@@ -23,7 +23,7 @@ class CategorySelect extends Component {
 					{categories.map(category => (
 						<Grid key={category.id} sm={4} xs={12} item>
 							<div onClick={this.onClickCategory.bind(this, category)}>
-								<Category category={category} />
+								<Category category={category} solid />
 							</div>
 						</Grid>
 					))}

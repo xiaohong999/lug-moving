@@ -9,6 +9,27 @@ const titles = [
 	"Preview the price"
 ];
 
+const howitworks = [
+	{
+		step: "Book Online",
+		text:
+			"Set your pickup location and destination, choose the size of vehicle that is right for you and let us know what time you want us to arrive.",
+		image: "images/howitworks.png"
+	},
+	{
+		step: "Relax",
+		text:
+			"We’ll get your item(s) picked you and delivered, keeping you updated via txt message.",
+		image: "images/howitworks.png"
+	},
+	{
+		step: "Rate Us",
+		text:
+			"Loved your experience using Lug? We’ll email you a link where you can tell us about your experience.",
+		image: "images/howitworks.png"
+	}
+];
+
 const initialCategories = [
 	{
 		id: 1,
@@ -76,6 +97,7 @@ const initialVehicles = [
 ];
 
 const initialState = {
+	howItWorks: howitworks,
 	categories: initialCategories,
 	vehicles: initialVehicles,
 	selectedCategory: null,

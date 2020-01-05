@@ -3,9 +3,13 @@ import { MdArrowForward } from "react-icons/md";
 
 export default class Category extends Component {
 	render() {
-		const { category, selected } = this.props;
+		const { category, solid, selected } = this.props;
 		return (
-			<div className={`category ${selected ? "selected" : ""}`}>
+			<div
+				className={`category ${solid ? "solid" : ""} ${
+					selected ? "selected" : ""
+				}`}
+			>
 				<img className="icon" src={category.icon} alt="icon" />
 				<div className="name">{category.name}</div>
 				<MdArrowForward className="arrow" />

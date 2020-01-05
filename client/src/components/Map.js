@@ -25,7 +25,7 @@ export default class Map extends Component {
 						directions={directions}
 						options={{
 							polylineOptions: {
-								strokeColor: "#062037",
+								strokeColor: "#3a3973",
 								strokeWeight: 4
 							},
 							suppressMarkers: true

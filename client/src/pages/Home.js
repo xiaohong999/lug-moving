@@ -7,6 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 import Footer from "../layouts/Footer";
 import { categorySelected } from "../redux/actions";
+import { Rating } from "@material-ui/lab";
 
 class Home extends Component {
 	onClickCategory = category => {
@@ -14,56 +15,19 @@ class Home extends Component {
 		this.props.categorySelected(category);
 	};
 	render() {
-		const { categories } = this.props;
+		const { categories, howItWorks } = this.props;
 		return (
-			<div className="home" style={{ background: "var(--colorBg)" }}>
+			<div className="home">
 				<div
-					className="bg"
+					className="top-panel"
 					style={{
 						backgroundImage:
-							"linear-gradient(-180deg, rgba(6, 32, 55, 0.3) 2%, rgba(6, 32, 55, 0.8) 40%, rgb(6, 32, 55) 80%, rgb(6, 32, 55)), url('images/bg.jpg')"
+							"linear-gradient(rgba(58, 57, 115, 0.8), rgba(58, 57, 115, 0.6)), url('images/bg.jpg')"
 					}}
-				></div>
-				<div style={{ position: "relative" }} className="container">
+				>
 					<Header />
 					<div className="title">Move anything</div>
 					<div className="subtitle">with the push of a button</div>
-					<Container maxWidth="md" style={{ marginTop: 20 }}>
-						<Carousel
-							autoPlay
-							infiniteLoop={true}
-							showThumbs={false}
-							showArrows={false}
-							showStatus={false}
-							emulateTouch={true}
-							swipeable={true}
-						>
-							<div className="banner">
-								<div className="title">
-									<img className="icon" src="images/boy.png" alt="icon" />
-									Hong
-								</div>
-								<div className="description">
-									"This website is such a fast, easy, and convenient service!
-									I've used them twice now and both moves have been amazing. I
-									highly recommend this service to anyone who has no other way
-									to transport big items!"
-								</div>
-							</div>
-							<div className="banner">
-								<div className="title">
-									<img className="icon" src="images/girl.png" alt="icon" />
-									Mei
-								</div>
-								<div className="description">
-									"I bought a very large and heavy dresser and was worried about
-									how to get it home. Lugg really saved my day! Brett and Tamas
-									were super helpful and easy to communicate with. Definitely a
-									five star experience!"
-								</div>
-							</div>
-						</Carousel>
-					</Container>
 					<Grid
 						container
 						justify="center"
@@ -81,39 +45,80 @@ class Home extends Component {
 							</Grid>
 						</Grid>
 					</Grid>
-					<div className="how-works">
-						<div className="title">How it works</div>
-						<div className="subtitle">Anything moved in 3 easy steps</div>
-						<div className="image">
-							<img
-								src="images/howitworks.png"
-								style={{ maxWidth: "100%" }}
-								alt="how it works"
-							/>
-						</div>
-						<div className="step">
-							<div className="title">1. Book Online</div>
-							<div className="subtitle">
-								Set your pickup location and destination, choose the size of
-								vehicle that is right for you and let us know what time you want
-								us to arrive.
+				</div>
+				<div className="how-it-works">
+					<div className="title">How it works</div>
+					<div className="subtitle">Anything moved in 3 easy steps</div>
+					<Container maxWidth="md">
+						{howItWorks.map((item, index) => (
+							<div className="step" key={index}>
+								<div className="content">
+									<div className="no">
+										<span>{index + 1}</span>
+									</div>
+									<div className="title">{item.step}</div>
+									<div className="description">{item.text}</div>
+								</div>
+								<div className="image">
+									<img src={item.image} alt="how-it-works" />
+								</div>
 							</div>
-						</div>
-						<div className="step">
-							<div className="title">2. Relax</div>
-							<div className="subtitle">
-								We’ll get your item(s) picked you and delivered, keeping you
-								updated via txt message.
+						))}
+					</Container>
+				</div>
+				<div style={{ background: "#eee" }}>
+					<Container maxWidth="md" style={{ marginTop: 20 }}>
+						<Carousel
+							autoPlay
+							infiniteLoop={true}
+							showThumbs={false}
+							showArrows={false}
+							showStatus={false}
+							emulateTouch={true}
+							swipeable={true}
+						>
+							<div className="review">
+								<div className="title">
+									<img className="icon" src="images/boy.png" alt="icon" />
+									<div className="name">
+										<div>Hong</div>
+										<Rating value={5} readOnly />
+									</div>
+								</div>
+								<div className="description">
+									"This website is such a fast, easy, and convenient service!
+									I've used them twice now and both moves have been amazing. I
+									highly recommend this service to anyone who has no other way
+									to transport big items!"
+								</div>
 							</div>
-						</div>
-						<div className="step">
-							<div className="title">3. Rate Us</div>
-							<div className="subtitle">
-								Loved your experience using Lug? We’ll email you a link where
-								you can tell us about your experience.
+							<div className="review">
+								<div className="title">
+									<img className="icon" src="images/girl.png" alt="icon" />
+									<div className="name">
+										<div>Mei</div>
+										<Rating value={5} readOnly />
+									</div>
+								</div>
+								<div className="description">
+									"I bought a very large and heavy dresser and was worried about
+									how to get it home. Lugg really saved my day! Brett and Tamas
+									were super helpful and easy to communicate with. Definitely a
+									five star experience!"
+								</div>
 							</div>
+						</Carousel>
+						<div
+							style={{
+								color: "var(--colorMain)",
+								padding: 20,
+								fontSize: 24,
+								fontWeight: 600
+							}}
+						>
+							Read more
 						</div>
-					</div>
+					</Container>
 					<Footer />
 				</div>
 			</div>
@@ -122,6 +127,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
+	howItWorks: state.howItWorks,
 	categories: state.categories
 });
 const mapDispatchToProps = dispatch => ({
