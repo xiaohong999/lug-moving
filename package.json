@@ -4,12 +4,14 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"client": "cd client && npm start",
-		"start": "node server.js",
-		"server": "node server.js",
-		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"dev:server": "cd client && npm build && cd .. && npm run start",
-		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+		"start": "run-p start:**",
+		"start:lambda": "netlify-lambda serve api",
+		"start:app": "cd client && yarn start",
+		"build": "run-p build:**",
+		"build:lambda": "netlify-lambda build api",
+		"build:app": "cd client && yarn build",
+		"deploy:draft": "netlify deploy --dir=client/build --functions=functions",
+		"deploy:prod": "netlify deploy --dir=client/build --functions=functions --prod"
 	},
 	"engines": {
 		"node": "^10.13.0"
@@ -19,9 +21,11 @@
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"express": "^4.17.1",
-		"stripe": "^7.1.0"
+		"stripe": "^7.1.0",
+		"serverless-http": "^1.9.0"
 	},
 	"devDependencies": {
-		"concurrently": "^4.1.0"
+		"netlify-lambda": "^1.3.3",
+		"npm-run-all": "^4.1.5"
 	}
 }

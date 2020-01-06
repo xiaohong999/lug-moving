@@ -1,12 +1,11 @@
-const createPaymentIntent = options => {
-	return window
-		.fetch(`/api/create-payment-intent`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(options)
-		})
+const createPaymentIntent = async options => {
+	return await fetch("/.netlify/functions/server/api/create-payment-intent", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(options)
+	})
 		.then(res => {
 			if (res.status === 200) {
 				return res.json();
