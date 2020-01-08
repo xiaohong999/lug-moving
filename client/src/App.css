@@ -103,9 +103,9 @@ h3 {
 	min-height: 140px;
 }
 .vehicle .icon > img {
-	max-width: 60%;
+	max-width: 84%;
 	margin: auto;
-	padding: 3em 0 1em 0;
+	padding: 20px 0;
 	display: block;
 }
 .vehicle .title {
@@ -156,10 +156,16 @@ h3 {
 	border: 2px solid var(--colorLightGray);
 	background: var(--colorLightGray);
 	align-items: center;
-	min-height: 100px;
+	min-height: 120px;
 	margin-right: 6px;
 	cursor: pointer;
 }
+@media screen and (max-width: 600px) {
+	.vehicle-thumb-panel .item {
+		min-height: 60px;
+	}
+}
+
 .vehicle-thumb-panel div:first-child .item {
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
@@ -179,9 +185,8 @@ h3 {
 	color: var(--colorBg);
 }
 .vehicle-thumb-panel .item img {
-	max-width: 100%;
+	width: 80%;
 	margin: auto;
-	display: block;
 }
 
 /* date button */
