@@ -33,9 +33,9 @@ export default class Header extends Component {
 						</Link>
 					</div>
 					<div className="menu">
-						<Link to="/">Services</Link>
-						<Link to="/">Get an estimate</Link>
-						<Link to="/">About us</Link>
+						{/* <Link to="/">Services</Link> */}
+						<Link to="/how">How it works</Link>
+						{/* <Link to="/">Contact us</Link> */}
 						<Link to="/book" className="book">
 							Book now
 						</Link>

@@ -1,7 +1,7 @@
 /*global google*/
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Elements, StripeProvider } from "react-stripe-elements";
+// import { Elements, StripeProvider } from "react-stripe-elements";
 
 import { setStep } from "../../redux/actions";
 import { Container, Grid } from "@material-ui/core";
@@ -150,13 +150,14 @@ class PricePreview extends Component {
 						</div>
 					</Grid>
 					<Grid item sm={6} xs={12}>
-						<StripeProvider
+						{/* <StripeProvider
 							apiKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
 						>
 							<Elements>
 								<CheckoutForm bookData={bookData} price={price} />
 							</Elements>
-						</StripeProvider>
+						</StripeProvider> */}
+						<CheckoutForm bookData={bookData} price={price} />
 					</Grid>
 				</Grid>
 			</Container>

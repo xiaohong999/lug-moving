@@ -14,6 +14,7 @@ import VehicleSelect from "./pages/booking/VehicleSelect";
 import TimeSelect from "./pages/booking/TimeSelect";
 import PricePreview from "./pages/booking/PricePreview";
 import ContactInfo from "./pages/booking/ContactInfo";
+import HowItWorks from "./pages/HowItWorks";
 
 const store = createStore(reducer);
 
@@ -24,6 +25,7 @@ function App() {
 				<BrowserRouter>
 					<Switch>
 						<Route exact path="/" component={Home} />
+						<Route exact path="/how" component={HowItWorks} />
 						<Route>
 							<TopBar />
 							<Route exact path="/book" component={CategorySelect} />

@@ -9,18 +9,19 @@
 			name="description"
 			content="Web site created using create-react-app"
 		/>
-		<script src="https://js.stripe.com/v3/"></script>
+		<!-- <script src="https://js.stripe.com/v3/"></script> -->
 		<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&sensor=false&key=AIzaSyDGVuhv-EjcPELytvYvlSTGN-uIIwBskA8"></script>
-		<link
+		<!-- <link
 			rel="stylesheet"
 			type="text/css"
 			href="//fonts.googleapis.com/css?family=Permanent+Marker"
-		/>
+		/> -->
 		<link
 			rel="stylesheet"
 			type="text/css"
 			href="//fonts.googleapis.com/css?family=Varela+Round"
 		/>
+
 		<title>Lug</title>
 	</head>
 	<body>
@@ -36,5 +37,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+		<script src="https://chat-assets.frontapp.com/v1/chat.bundle.js"></script>
+		<script>
+			window.FrontChat("init", {
+				chatId: "0042cf73d634a1738f3c98cdbef1acc0",
+				useDefaultLauncher: true
+			});
+		</script>
 	</body>
 </html>
