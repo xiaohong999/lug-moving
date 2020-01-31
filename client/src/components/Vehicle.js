@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { calcPrice } from "../utils/Utils";
 // import { MdInfoOutline } from "react-icons/md";
 
 export default class Vehicle extends Component {
@@ -19,10 +20,7 @@ export default class Vehicle extends Component {
 				</div>
 				<div className="description">{vehicle.description}</div>
 				<div className="price">
-					$
-					{Number(
-						vehicle.pricePerKm * Number.parseFloat(distance / 1000)
-					).toFixed(2)}
+					${calcPrice(vehicle.pricePerKm, distance, vehicle.fee)}
 				</div>
 			</div>
 		);

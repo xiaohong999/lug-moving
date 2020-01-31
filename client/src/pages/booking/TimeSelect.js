@@ -131,7 +131,7 @@ class TimeSelect extends Component {
 			return;
 		}
 
-		this.props.history.push("/book/contact");
+		this.props.history.push("/book/item");
 		this.props.dateSelected(
 			vehicles[selectedVehicleIndex],
 			days[selectedDayIndex],

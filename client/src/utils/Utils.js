@@ -1,3 +1,7 @@
+export function calcPrice(price, distance, fee) {
+	return Number(price * Number.parseFloat(distance / 1000) + fee).toFixed(2);
+}
+
 export function get30DaysFromNow() {
 	let now = new Date();
 	let monthDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
@@ -73,7 +77,7 @@ export function getTimeString(time) {
 }
 
 export function validEmail(value) {
-	if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(value)) {
+	if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g.test(value)) {
 		return true;
 	}
 	return false;

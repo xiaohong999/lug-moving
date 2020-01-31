@@ -5,6 +5,7 @@ const titles = [
 	"Pickup and destination",
 	"Select a vehicle",
 	"Select a time",
+	"Add items to move",
 	"Contact Infomation",
 	"Preview the price"
 ];
@@ -12,33 +13,39 @@ const titles = [
 const initialCategories = [
 	{
 		id: 1,
-		name: "Move Anything",
-		icon: "images/c-01.png"
+		name: "Urgent Across Town",
+		iconNormal: "images/c-01-normal.png",
+		iconActive: "images/c-01-active.png"
 	},
 	{
 		id: 2,
-		name: "Trademe Pickup",
-		icon: "images/c-02.png"
+		name: "Evening Delivery",
+		iconNormal: "images/c-02-normal.png",
+		iconActive: "images/c-02-active.png"
 	},
 	{
 		id: 3,
-		name: "Storage Move",
-		icon: "images/c-03.png"
+		name: "One Man Van",
+		iconNormal: "images/c-03-normal.png",
+		iconActive: "images/c-03-active.png"
 	},
 	{
 		id: 4,
-		name: "Small Move",
-		icon: "images/c-04.png"
+		name: "Two Men, One Truck",
+		iconNormal: "images/c-04-normal.png",
+		iconActive: "images/c-04-active.png"
 	},
 	{
 		id: 5,
-		name: "Store Delivery",
-		icon: "images/c-05.png"
+		name: "Trademe Pickup & Delivery",
+		iconNormal: "images/c-05-normal.png",
+		iconActive: "images/c-05-active.png"
 	},
 	{
 		id: 6,
-		name: "Urgent Across Town",
-		icon: "images/c-06.png"
+		name: "Small Move",
+		iconNormal: "images/c-06-normal.png",
+		iconActive: "images/c-06-active.png"
 	}
 ];
 
@@ -49,6 +56,7 @@ const initialVehicles = [
 		luggers: 1,
 		description: "Single item deliveries, small moves and smaller loads.",
 		price: 47,
+		fee: 6,
 		additionalPrice: 0.8,
 		pricePerKm: 1.5,
 		icon: "../images/v-01.png"
@@ -59,6 +67,7 @@ const initialVehicles = [
 		luggers: 1,
 		description: "Single item deliveries, small moves and smaller loads.",
 		price: 63,
+		fee: 10,
 		additionalPrice: 1.4,
 		pricePerKm: 3.0,
 		icon: "../images/v-02.png"
@@ -69,6 +78,7 @@ const initialVehicles = [
 		luggers: 2,
 		description: "Single item deliveries, small moves and smaller loads.",
 		price: 100,
+		fee: 35,
 		additionalPrice: 1.75,
 		pricePerKm: 4.0,
 		icon: "../images/v-03.png"
@@ -83,6 +93,7 @@ const initialState = {
 	selectedVehicle: null,
 	selectedDate: null,
 	contactInfo: null,
+	items: [],
 	price: 0,
 	title: titles[0],
 	step: 1
@@ -113,6 +124,12 @@ export default function reducer(state = initialState, action) {
 				...state,
 				selectedVehicle: action.vehicle,
 				selectedDate: action.date
+			};
+		}
+		case Types.ITEMS_SAVED: {
+			return {
+				...state,
+				items: action.items
 			};
 		}
 		case Types.CONTACT_INFO_SAVED: {

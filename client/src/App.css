@@ -36,12 +36,23 @@ h3 {
 	border-radius: 10px;
 	background: linear-gradient(
 		135deg,
-		rgba(255, 255, 255, 0.6) 30%,
-		rgba(255, 255, 255, 0.9)
+		rgba(255, 255, 255, 0.8) 30%,
+		rgba(255, 255, 255)
 	);
 	justify-content: center;
 	cursor: pointer;
 }
+@media screen and (max-width: 1024px) {
+	.category {
+		min-height: 240px;
+	}
+}
+@media screen and (max-width: 600px) {
+	.category {
+		min-height: 0;
+	}
+}
+
 .category.solid {
 	border-radius: 20px;
 	background: var(--colorBg);
@@ -56,17 +67,19 @@ h3 {
 .category.solid:hover {
 	background: var(--colorMain);
 }
-.category .icon {
-	height: 100px;
+.category .icon,
+.category .icon-focus {
+	height: 140px;
 	margin: auto;
-	padding: 20px;
-}
-.category:hover .icon {
-	-webkit-filter: invert(1);
-	filter: invert(1);
 }
 
+/* .category:hover .icon {
+	-webkit-filter: invert(1);
+	filter: invert(1);
+} */
+
 .category .name {
+	padding: 0 5px;
 	text-align: center;
 	font-size: 20px;
 	font-weight: 600;
@@ -800,4 +813,103 @@ h3 {
 }
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
 	border-color: var(--colorMain) !important;
+}
+
+/* Adding Item */
+.add-item {
+	display: flex;
+	justify-content: center;
+}
+.add-item .name {
+	flex: 1;
+	padding-right: 10px;
+}
+
+/* Item List */
+.list-panel {
+	padding: 20px 0;
+}
+.list-panel .label {
+	margin-right: 20px;
+	font-size: 24px;
+}
+.list-panel .title-area {
+	display: flex;
+	justify-content: start;
+}
+.list-panel .btn-add,
+.list-panel .btn-edit,
+.list-panel .btn-delete {
+	cursor: pointer;
+}
+.list-panel .btn-add {
+	color: var(--colorMain);
+}
+.list-panel .btn-edit {
+	color: var(--colorMain);
+	margin-right: 10px;
+}
+.list-panel .btn-delete {
+	color: red;
+}
+/* .list-panel .btn-add span,
+.list-panel .btn-edit span,
+.list-panel .btn-delete span {
+	margin-left: 5px;
+	font-size: 16px;
+} */
+.item-list {
+	display: table;
+	width: 100%;
+	padding-top: 10px;
+}
+.item-list .row {
+	display: table-row;
+	min-height: 30px;
+}
+.item-list .row:nth-child(odd) {
+	background: #f0f0f0;
+}
+.item-list .cell {
+	display: table-cell;
+	padding: 10px;
+	text-align: left;
+	font-size: 16px;
+	vertical-align: middle;
+}
+.item-list .cell.count {
+	width: 30px;
+}
+.item-list .cell.action {
+	width: 60px;
+}
+/* Quantity component */
+.quantity {
+	border: 1px solid #bbb;
+	display: inline-block;
+	border-radius: 4px;
+	overflow: hidden;
+	font-size: 16px;
+}
+.quantity button {
+	outline: 0;
+	border: 0;
+	font-size: 20px;
+	height: 100%;
+	min-width: 36px;
+	cursor: pointer;
+}
+.quantity button:hover {
+	background: var(--colorMain);
+	color: var(--colorWhite);
+}
+.quantity button:first-child {
+	border-right: 1px solid #bbb;
+}
+.quantity button:last-child {
+	border-left: 1px solid #bbb;
+}
+.quantity span {
+	display: inline-block;
+	min-width: 48px;
 }

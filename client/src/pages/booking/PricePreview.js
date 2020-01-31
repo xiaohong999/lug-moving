@@ -7,7 +7,7 @@ import { setStep } from "../../redux/actions";
 import { Container, Grid } from "@material-ui/core";
 import Map from "../../components/Map";
 import { FiCalendar } from "react-icons/fi";
-import { getDateString, getTimeString } from "../../utils/Utils";
+import { getDateString, getTimeString, calcPrice } from "../../utils/Utils";
 import CheckoutForm from "../../components/CheckoutForm";
 
 class PricePreview extends Component {
@@ -39,10 +39,11 @@ class PricePreview extends Component {
 
 		let price =
 			bookData.selectedVehicle && bookData.selectedLocation
-				? Number(
-						bookData.selectedVehicle.pricePerKm *
-							Number.parseFloat(bookData.selectedLocation.distance / 1000)
-				  ).toFixed(2)
+				? calcPrice(
+						bookData.selectedVehicle.pricePerKm,
+						bookData.selectedLocation.distance,
+						bookData.selectedVehicle.fee
+				  )
 				: 0;
 		this.setState({
 			price: price

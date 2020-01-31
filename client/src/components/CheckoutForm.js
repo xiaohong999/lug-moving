@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 import axios from "axios";
-import { PayPalButton } from "react-paypal-button";
+import { PayPalButton } from "react-paypal-button-v2";
 
 class CheckoutForm extends Component {
 	constructor(props) {
@@ -24,27 +24,38 @@ class CheckoutForm extends Component {
 			bookData.selectedDate.date.day,
 			bookData.selectedDate.time.from
 		);
+		let items = [];
+		for (let i in bookData.items) {
+			let item = bookData.items[i];
+			items.push({
+				quantity: item.quantity,
+				description: item.name
+			});
+		}
+		let sendData = {
+			apiKey: process.env.REACT_APP_GETSWIFT_API_KEY,
+			booking: {
+				deliveryInstructions: bookData.contactInfo.instructions,
+				items: items,
+				pickupDetail: {
+					name: bookData.contactInfo.pickup.name,
+					phone: bookData.contactInfo.pickup.phone,
+					email: bookData.contactInfo.pickup.email,
+					address: bookData.selectedLocation.pickup.address
+				},
+				dropoffDetail: {
+					name: bookData.contactInfo.destination.name,
+					phone: bookData.contactInfo.destination.phone,
+					email: bookData.contactInfo.destination.email,
+					address: bookData.selectedLocation.destination.address
+				},
+				pickupTime: pickupTime,
+				customerFee: price
+			}
+		};
+		console.log(sendData);
 		axios
-			.post(process.env.REACT_APP_GETSWIFT_API_URL, {
-				apiKey: process.env.REACT_APP_GETSWIFT_API_KEY,
-				booking: {
-					deliveryInstructions: bookData.contactInfo.instructions,
-					pickupDetail: {
-						name: bookData.contactInfo.pickup.name,
-						phone: bookData.contactInfo.pickup.phone,
-						email: bookData.contactInfo.pickup.email,
-						address: bookData.selectedLocation.pickup.address
-					},
-					dropoffDetail: {
-						name: bookData.contactInfo.destination.name,
-						phone: bookData.contactInfo.destination.phone,
-						email: bookData.contactInfo.destination.email,
-						address: bookData.selectedLocation.destination.address
-					},
-					pickupTime: pickupTime,
-					customerFee: price
-				}
-			})
+			.post(process.env.REACT_APP_GETSWIFT_API_URL, sendData)
 			.then(result => {
 				console.log(result);
 			});
@@ -55,6 +66,10 @@ class CheckoutForm extends Component {
 			dialogOpen: false
 		});
 	}
+
+	test = e => {
+		this.sendToServer();
+	};
 
 	onSuccess = response => {
 		console.log("Successful payment!", response);
@@ -78,12 +93,9 @@ class CheckoutForm extends Component {
 			clientId:
 				process.env.NODE_ENV === "development"
 					? process.env.REACT_APP_PAYPAL_CLIENT_ID_SANDBOX
-					: process.env.REACT_APP_PAYPAL_CLIENT_ID_PRODUCTION
-		};
-
-		const buttonStyles = {
-			layout: "vertical",
-			shape: "rect"
+					: process.env.REACT_APP_PAYPAL_CLIENT_ID_PRODUCTION,
+			currency: "NZD",
+			locale: "en_NZ"
 		};
 
 		return (
@@ -93,15 +105,14 @@ class CheckoutForm extends Component {
 						<div className="label">Price:</div>
 						<div className="value">${price}</div>
 					</div>
-
+					{/* <button onClick={this.test}>Ok</button> */}
 					<div style={{ marginTop: 20 }}>
 						<PayPalButton
-							paypalOptions={paypalOptions}
-							buttonStyles={buttonStyles}
+							options={paypalOptions}
 							amount={price}
-							onPaymentSuccess={this.onSuccess}
-							onPaymentCancel={this.onCancel}
-							onPaymentError={this.onError}
+							onSuccess={this.onSuccess}
+							onCancel={this.onCancel}
+							onError={this.onError}
 						/>
 					</div>
 				</div>
