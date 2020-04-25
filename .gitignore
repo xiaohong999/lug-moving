@@ -1,2 +1,6 @@
 /node_modules
 /.netlify
+
+# lock
+package-lock.json
+yarn.lock

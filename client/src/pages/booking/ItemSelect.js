@@ -1,3 +1,4 @@
+/*global gtag*/
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, TextField, Button } from "@material-ui/core";
@@ -10,29 +11,33 @@ class ItemSelect extends Component {
 		this.state = {
 			selectedItem: null,
 			quantity: 1,
-			items: []
+			items: props.items,
 		};
+
 		this.itemName = React.createRef();
+
+		props.setStep(5);
 	}
 
 	increaseQuantity = () => {
 		this.setState({
-			quantity: this.state.quantity + 1
+			quantity: this.state.quantity + 1,
 		});
 	};
 
 	decreaseQuantity = () => {
 		this.setState({
-			quantity: this.state.quantity > 1 ? this.state.quantity - 1 : 0
+			quantity: this.state.quantity > 1 ? this.state.quantity - 1 : 1,
 		});
-	};
-
-	componentWillMount = () => {
-		this.props.setStep(5);
 	};
 
 	componentDidMount = () => {
 		this.itemName.focus();
+		gtag("js", new Date());
+		gtag("config", "UA-156726482-1");
+		if (window.fbq != null) {
+			window.fbq("track", "PageView");
+		}
 	};
 
 	handleContinue = () => {
@@ -48,7 +53,7 @@ class ItemSelect extends Component {
 	handleNew = () => {
 		this.setState({
 			selectedItem: null,
-			quantity: 1
+			quantity: 1,
 		});
 		this.itemName.value = "";
 		this.itemName.focus();
@@ -63,7 +68,7 @@ class ItemSelect extends Component {
 		let newItem = {
 			id: new Date().getTime(),
 			name: this.itemName.value,
-			quantity: this.state.quantity
+			quantity: this.state.quantity,
 		};
 		const { selectedItem } = this.state;
 		let items = this.state.items;
@@ -82,28 +87,28 @@ class ItemSelect extends Component {
 		this.setState({
 			items: items,
 			quantity: 1,
-			selectedItem: null
+			selectedItem: null,
 		});
 		this.itemName.value = "";
 		this.itemName.focus();
 	};
 
-	handleEdit = item => {
+	handleEdit = (item) => {
 		this.itemName.value = item.name;
 		this.itemName.focus();
 		this.setState({
 			selectedItem: item,
-			quantity: item.quantity
+			quantity: item.quantity,
 		});
 	};
 
-	handleDelete = item => {
+	handleDelete = (item) => {
 		let items = this.state.items;
 		items.splice(items.indexOf(item), 1);
 		this.setState({
 			items: items,
 			quantity: 1,
-			selectedItem: null
+			selectedItem: null,
 		});
 		this.itemName.value = "";
 	};
@@ -111,22 +116,14 @@ class ItemSelect extends Component {
 	render() {
 		const { quantity, items } = this.state;
 		const itemList = items.length ? (
-			items.map(item => (
+			items.map((item) => (
 				<div key={item.id} className="row">
 					<div className="cell">{item.name}</div>
 					<div className="cell count">{item.quantity}</div>
 					<div className="cell action">
 						<div style={{ display: "flex", alignItems: "end" }}>
-							<FaRegEdit
-								className="btn-edit"
-								size={24}
-								onClick={this.handleEdit.bind(this, item)}
-							/>
-							<FaRegTrashAlt
-								className="btn-delete"
-								size={24}
-								onClick={this.handleDelete.bind(this, item)}
-							/>
+							<FaRegEdit className="btn-edit" size={24} onClick={this.handleEdit.bind(this, item)} />
+							<FaRegTrashAlt className="btn-delete" size={24} onClick={this.handleDelete.bind(this, item)} />
 						</div>
 					</div>
 				</div>
@@ -143,16 +140,14 @@ class ItemSelect extends Component {
 							label="Item name"
 							placeholder="Type item name to add"
 							InputLabelProps={{
-								shrink: true
+								shrink: true,
 							}}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.itemName = ref;
 							}}
 							variant="outlined"
 						/>
 					</div>
-					{/* <div>
-						<div style={{ marginTop: -10, marginBottom: 3 }}>Quantity</div> */}
 					<div className="quantity" style={{ marginRight: 10 }}>
 						<button onClick={this.decreaseQuantity}>-</button>
 						<span>{quantity}</span>
@@ -161,18 +156,12 @@ class ItemSelect extends Component {
 					<Button className="lug-btn" onClick={this.handleSave}>
 						Save
 					</Button>
-					{/* </div> */}
 				</div>
 				<div className="list-panel">
 					<div className="title-area">
 						<span className="label">
 							{items.length} item{items.length > 1 ? "s" : ""} added
 						</span>
-						{/* <FaRegPlusSquare
-							size={30}
-							className="btn-add"
-							onClick={this.handleNew}
-						/> */}
 					</div>
 					<div className="item-list">{itemList}</div>
 				</div>
@@ -184,13 +173,13 @@ class ItemSelect extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	items: state.items
+const mapStateToProps = (state) => ({
+	items: state.items,
 });
 
-const mapDispatchToProps = dispatch => ({
-	itemsSaved: items => dispatch(itemsSaved(items)),
-	setStep: value => dispatch(setStep(value))
+const mapDispatchToProps = (dispatch) => ({
+	itemsSaved: (items) => dispatch(itemsSaved(items)),
+	setStep: (value) => dispatch(setStep(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemSelect);

@@ -10,9 +10,8 @@
 	--colorLightGray: #dddee4;
 	--colorRed: #de615e;
 	text-align: center;
-	--fontMain: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI",
-		"Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-		"Helvetica Neue", sans-serif;
+	--fontMain: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
 	font-family: var(--fontMain);
 }
 input,
@@ -34,11 +33,7 @@ h3 {
 /* category button */
 .category {
 	border-radius: 10px;
-	background: linear-gradient(
-		135deg,
-		rgba(255, 255, 255, 0.8) 30%,
-		rgba(255, 255, 255)
-	);
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255));
 	justify-content: center;
 	cursor: pointer;
 }
@@ -94,7 +89,6 @@ h3 {
 .vehicle {
 	border-radius: 20px;
 	background: var(--colorBg);
-	justify-content: center;
 	cursor: pointer;
 	box-shadow: 0 0 1px 1px var(--colorLightGray);
 }
@@ -104,7 +98,7 @@ h3 {
 	color: var(--colorBg);
 }
 .vehicle:hover .title .luggers,
-.vehicle.selected .luggers {
+.vehicle.selected .title .luggers {
 	background: var(--colorBg);
 	color: var(--colorMain);
 }
@@ -112,19 +106,14 @@ h3 {
 .vehicle.selected .description {
 	color: var(--colorWhite);
 }
-.vehicle .icon {
-	min-height: 140px;
-}
-.vehicle .icon > img {
-	max-width: 84%;
-	margin: auto;
-	padding: 20px 0;
-	display: block;
+.vehicle img {
+	height: 80px;
+	margin: 20px auto 10px auto;
 }
 .vehicle .title {
 	display: flex;
 	justify-content: center;
-	padding-bottom: 5px;
+	align-items: center;
 }
 .vehicle .title .name {
 	text-align: center;
@@ -132,11 +121,10 @@ h3 {
 	font-weight: 600;
 }
 .vehicle .title .luggers {
-	vertical-align: middle;
-	margin: 5px;
-	padding: 2px 8px;
+	margin: 0 5px;
+	padding: 3px 6px;
 	background: var(--colorMain);
-	border-radius: 2px;
+	border-radius: 4px;
 	color: var(--colorWhite);
 	font-size: 12px;
 }
@@ -148,35 +136,32 @@ h3 {
 	min-height: 40px;
 }
 .vehicle .price {
-	padding: 14px;
-	font-size: 20px;
-	font-weight: 600;
+	padding: 4px 0;
+	font-size: 14px;
+	text-decoration: line-through;
+	color: #f55;
 }
 .vehicle .price .info {
 	padding-left: 5px;
 	margin-top: -5px;
 	vertical-align: middle;
 }
-
+.vehicle .price-modified {
+	padding: 4px 0 12px 0;
+	font-size: 20px;
+	font-weight: 600;
+}
 /* vehicle-thumb button */
 .vehicle-thumb-panel {
 	padding: 0 4px;
 }
 
 .vehicle-thumb-panel .item {
-	display: flex;
 	padding: 5px;
 	border: 2px solid var(--colorLightGray);
 	background: var(--colorLightGray);
-	align-items: center;
-	min-height: 140px;
 	margin-right: 6px;
 	cursor: pointer;
-}
-@media screen and (max-width: 600px) {
-	.vehicle-thumb-panel .item {
-		min-height: 60px;
-	}
 }
 
 .vehicle-thumb-panel div:first-child .item {
@@ -198,8 +183,50 @@ h3 {
 	color: var(--colorBg);
 }
 .vehicle-thumb-panel .item img {
-	width: 80%;
-	margin: auto;
+	height: 70px;
+	margin: 10px auto;
+}
+.vehicle-thumb-panel .item .title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;
+}
+.vehicle-thumb-panel .item .title .name {
+	text-align: center;
+	font-weight: 500;
+}
+.vehicle-thumb-panel .item .title .luggers {
+	margin: 0 5px;
+	padding: 2px 6px;
+	background: var(--colorMain);
+	border-radius: 2px;
+	color: var(--colorWhite);
+	font-size: 11px;
+}
+.vehicle-thumb-panel .item.selected .title .luggers {
+	background: var(--colorBg);
+	color: var(--colorMain);
+}
+
+@media screen and (max-width: 600px) {
+	.vehicle-thumb-panel {
+		padding: 0;
+	}
+	.vehicle-thumb-panel .item {
+		border-radius: 10px !important;
+		margin: 4px !important;
+	}
+	.vehicle-thumb-panel .item img {
+		height: 44px;
+		margin: 6px auto;
+	}
+	.vehicle-thumb-panel .item .title {
+		margin-bottom: 2px;
+	}
+	.vehicle-thumb-panel .item .title .name {
+		font-size: 14px;
+	}
 }
 
 /* date button */
@@ -277,7 +304,7 @@ h3 {
 
 /*price preview*/
 .preview {
-	padding: 20px;
+	padding: 20px 0 0 0;
 }
 .payment-method {
 	margin-top: 20px;
@@ -389,7 +416,6 @@ h3 {
 	padding: 10px;
 	user-select: none;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-	margin: 0 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -405,12 +431,9 @@ h3 {
 .top-menu a.book {
 	border: 2px solid var(--colorWhite);
 	border-radius: 6px;
+	margin: 0 10px !important;
 }
-@media screen and (max-width: 600px) {
-	.top-menu a.book {
-		text-align: center !important;
-	}
-}
+
 .top-menu a.book:hover {
 	border: 2px solid var(--colorSecondary);
 }
@@ -438,6 +461,13 @@ h3 {
 	cursor: pointer;
 }
 
+.top-menu-lead {
+	padding: 0 20px;
+}
+.top-menu-lead img {
+	max-height: 64px;
+}
+
 @media screen and (max-width: 600px) {
 	.top-menu {
 		padding: 40px 20px 20px 20px;
@@ -453,31 +483,24 @@ h3 {
 	.top-menu-icon {
 		display: block !important;
 	}
-}
 
-@media screen and (max-width: 600px) {
+	.top-menu a.book {
+		text-align: center !important;
+	}
+
 	.top-menu.collapsed {
-		padding: 60px 0 0 0;
+		padding: 60px 0 10px 0;
 		max-height: 1500px;
 		transition: max-height 1s;
 	}
 
 	.top-menu.collapsed *:not(.top-menu-lead):not(.top-menu-icon) {
 		float: none;
-		display: block !important;
+		display: block;
 		text-align: left;
 		margin: 0;
 	}
-}
 
-.top-menu-lead {
-	padding: 0 20px;
-}
-.top-menu-lead img {
-	max-height: 64px;
-}
-
-@media screen and (max-width: 600px) {
 	.top-menu-lead {
 		position: absolute;
 		top: 10px;
@@ -724,7 +747,7 @@ h3 {
 }
 @media screen and (max-width: 600px) {
 	.location-drop-down {
-		margin-left: -39px;
+		margin-left: -50px;
 	}
 }
 
@@ -912,4 +935,77 @@ h3 {
 .quantity span {
 	display: inline-block;
 	min-width: 48px;
+}
+
+/* Location Fields */
+.location-panel {
+	padding: 10px 20px;
+	background: var(--colorBg);
+	border-radius: 10px;
+	margin-bottom: 16px;
+}
+
+.container {
+	display: flex;
+	max-width: 1060px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.discount-panel {
+	padding: 20px 0 0;
+	text-align: left;
+}
+.preview-left-panel {
+	min-height: calc(100vh - 60px);
+	box-shadow: 2px 2px 4px #ddd;
+	padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+	.preview-left-panel {
+		box-shadow: none;
+	}
+}
+
+.my-popover {
+	background: #2c2b54;
+	border-radius: 8px;
+	padding: 10px;
+	margin: 0 5px;
+}
+
+.my-popover .item {
+	color: white;
+	padding: 10px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.my-popover .item:hover {
+	color: var(--colorSecondary);
+}
+
+@media screen and (max-width: 600px) {
+	.my-popover {
+		border-radius: 0;
+	}
+	.my-popover .item {
+		font-size: 16px;
+	}
+}
+
+.service-title {
+	font-size: 32px;
+	font-weight: 600;
+}
+.service-step-image {
+	width: 200px;
+}
+@media screen and (max-width: 600px) {
+	.service-title {
+		font-size: 26px;
+	}
+	.service-step-image {
+		width: 160px;
+	}
 }

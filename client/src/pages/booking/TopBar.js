@@ -12,7 +12,7 @@ const styles = {
 		marginBottom: 30,
 		display: "flex",
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
 	},
 	index: {
 		display: "flex",
@@ -24,8 +24,8 @@ const styles = {
 		marginRight: 10,
 		borderRadius: "50%",
 		background: "var(--colorWhite)",
-		color: "var(--colorMain)"
-	}
+		color: "var(--colorMain)",
+	},
 };
 
 class TopBar extends Component {
@@ -40,10 +40,9 @@ class TopBar extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		title: state.title,
-		step: state.step
-	};
-}
+const mapStateToProps = (state) => ({
+	title: state.title,
+	step: state.step,
+});
+
 export default connect(mapStateToProps)(withStyles(styles)(TopBar));

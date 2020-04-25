@@ -1,8 +1,20 @@
+/*global gtag*/
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Grid, Button, TextField } from "@material-ui/core";
 import { contactInfoSaved, setStep } from "../../redux/actions";
-import { validEmail } from "../../utils/Utils";
+import { validEmail, validPhone, validName, validDescription } from "../../utils";
+
+const styles = {
+	input: {
+		margin: "7px 0",
+	},
+	label: {
+		margin: "10px 0",
+		fontSize: 24,
+		color: "var(--colorMain)",
+	},
+};
 
 class ContactInfo extends Component {
 	constructor(props) {
@@ -22,7 +34,8 @@ class ContactInfo extends Component {
 			validPickupEmail: true,
 			validDestinationName: true,
 			validDestinationPhone: true,
-			validDestinationEmail: true
+			validDestinationEmail: true,
+			validInstructions: true,
 		};
 
 		this.onClickContinue = this.onClickContinue.bind(this);
@@ -32,63 +45,88 @@ class ContactInfo extends Component {
 		this.onChangeDestinationName = this.onChangeDestinationName.bind(this);
 		this.onChangeDestinationPhone = this.onChangeDestinationPhone.bind(this);
 		this.onChangeDestinationEmail = this.onChangeDestinationEmail.bind(this);
+		this.onChangeInstructions = this.onChangeInstructions.bind(this);
+
+		props.setStep(5);
 	}
 
-	componentWillMount() {
-		this.props.setStep(5);
+	componentDidMount() {
+		const { contactInfo } = this.props;
+		if (contactInfo) {
+			this.pickupName.value = contactInfo.pickup.name;
+			this.pickupPhone.value = contactInfo.pickup.phone;
+			this.pickupEmail.value = contactInfo.pickup.email;
+			this.destinationName.value = contactInfo.destination.name;
+			this.destinationPhone.value = contactInfo.destination.phone;
+			this.destinationEmail.value = contactInfo.destination.email;
+			this.instructions.value = contactInfo.instructions;
+		}
+
+		gtag("js", new Date());
+		gtag("config", "UA-156726482-1");
+		if (window.fbq != null) {
+			window.fbq("track", "PageView");
+		}
 	}
 
-	onChangePickupName = event => {
+	onChangePickupName = (event) => {
 		this.setState({
-			validPickupName: event.target.value.trim().length > 0
+			validPickupName: validName(event.target.value),
 		});
 	};
 
-	onChangePickupPhone = event => {
+	onChangePickupPhone = (event) => {
 		this.setState({
-			validPickupPhone: event.target.value.trim().length > 0
+			validPickupPhone: validPhone(event.target.value),
 		});
 	};
 
-	onChangePickupEmail = event => {
+	onChangePickupEmail = (event) => {
 		this.setState({
-			validPickupEmail: validEmail(event.target.value)
+			validPickupEmail: validEmail(event.target.value),
 		});
 	};
 
-	onChangeDestinationName = event => {
+	onChangeDestinationName = (event) => {
 		this.setState({
-			validDestinationName: event.target.value.trim().length > 0
+			validDestinationName: validName(event.target.value),
 		});
 	};
 
-	onChangeDestinationPhone = event => {
+	onChangeDestinationPhone = (event) => {
 		this.setState({
-			validDestinationPhone: event.target.value.trim().length > 0
+			validDestinationPhone: validPhone(event.target.value),
 		});
 	};
 
-	onChangeDestinationEmail = event => {
+	onChangeDestinationEmail = (event) => {
 		this.setState({
-			validDestinationEmail: validEmail(event.target.value)
+			validDestinationEmail: validEmail(event.target.value),
+		});
+	};
+
+	onChangeInstructions = (event) => {
+		this.setState({
+			validInstructions: validDescription(event.target.value),
 		});
 	};
 
 	validInputs() {
-		let validPickupName = this.pickupName.value.trim().length > 0;
-		let validPickupPhone = this.pickupPhone.value.trim().length > 0;
+		let validPickupName = validName(this.pickupName.value);
+		let validPickupPhone = validPhone(this.pickupPhone.value);
 		let validPickupEmail = validEmail(this.pickupEmail.value);
-		let validDestinationName = this.destinationName.value.trim().length > 0;
-		let validDestinationPhone = this.destinationPhone.value.trim().length > 0;
+		let validDestinationName = validName(this.destinationName.value);
+		let validDestinationPhone = validPhone(this.destinationPhone.value);
 		let validDestinationEmail = validEmail(this.destinationEmail.value);
-
+		let validInstructions = validDescription(this.instructions.value);
 		this.setState({
 			validPickupName: validPickupName,
 			validPickupPhone: validPickupPhone,
 			validPickupEmail: validPickupEmail,
 			validDestinationName: validDestinationName,
 			validDestinationPhone: validDestinationPhone,
-			validDestinationEmail: validDestinationEmail
+			validDestinationEmail: validDestinationEmail,
+			validInstructions: validInstructions,
 		});
 
 		if (
@@ -97,7 +135,8 @@ class ContactInfo extends Component {
 			!validPickupEmail ||
 			!validDestinationName ||
 			!validDestinationPhone ||
-			!validDestinationEmail
+			!validDestinationEmail ||
+			!validInstructions
 		) {
 			return false;
 		}
@@ -113,28 +152,18 @@ class ContactInfo extends Component {
 			pickup: {
 				name: this.pickupName.value,
 				phone: this.pickupPhone.value,
-				email: this.pickupEmail.value
+				email: this.pickupEmail.value,
 			},
 			destination: {
 				name: this.destinationName.value,
 				phone: this.destinationPhone.value,
-				email: this.destinationEmail.value
+				email: this.destinationEmail.value,
 			},
-			instructions: this.instructions.value
+			instructions: this.instructions.value,
 		});
 	}
 
 	render() {
-		const styles = {
-			input: {
-				margin: "7px 0"
-			},
-			label: {
-				margin: "10px 0",
-				fontSize: 24,
-				color: "var(--colorMain)"
-			}
-		};
 		return (
 			<Container maxWidth="md" style={{ marginBottom: 10 }}>
 				<Grid container justify="center" spacing={3}>
@@ -147,7 +176,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangePickupName}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.pickupName = ref;
 							}}
 							required
@@ -159,7 +188,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangePickupPhone}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.pickupPhone = ref;
 							}}
 							required
@@ -171,7 +200,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangePickupEmail}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.pickupEmail = ref;
 							}}
 							required
@@ -186,7 +215,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangeDestinationName}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.destinationName = ref;
 							}}
 							required
@@ -198,7 +227,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangeDestinationPhone}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.destinationPhone = ref;
 							}}
 							required
@@ -210,7 +239,7 @@ class ContactInfo extends Component {
 							variant="outlined"
 							onChange={this.onChangeDestinationEmail}
 							style={styles.input}
-							inputRef={ref => {
+							inputRef={(ref) => {
 								this.destinationEmail = ref;
 							}}
 							required
@@ -218,35 +247,32 @@ class ContactInfo extends Component {
 					</Grid>
 					<div style={styles.label}>Instructions</div>
 					<TextField
+						error={!this.state.validInstructions}
 						fullWidth
-						placeholder="Instructions here ..."
+						placeholder="Instructions here..."
 						multiline
 						variant="outlined"
+						onChange={this.onChangeInstructions}
 						style={{ margin: "0 12px 20px 12px" }}
-						inputRef={ref => {
+						inputRef={(ref) => {
 							this.instructions = ref;
 						}}
 					/>
 				</Grid>
-				<Button
-					fullWidth
-					className="lug-btn"
-					style={{ margin: "10px 0" }}
-					onClick={this.onClickContinue}
-				>
+				<Button fullWidth className="lug-btn" style={{ margin: "10px 0" }} onClick={this.onClickContinue}>
 					Continue
 				</Button>
 			</Container>
 		);
 	}
 }
-const mapStateToProps = state => ({
-	contactInfo: state.contactInfo
+const mapStateToProps = (state) => ({
+	contactInfo: state.contactInfo,
 });
 
-const mapDispatchToProps = dispatch => ({
-	contactInfoSaved: info => dispatch(contactInfoSaved(info)),
-	setStep: value => dispatch(setStep(value))
+const mapDispatchToProps = (dispatch) => ({
+	contactInfoSaved: (info) => dispatch(contactInfoSaved(info)),
+	setStep: (value) => dispatch(setStep(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactInfo);

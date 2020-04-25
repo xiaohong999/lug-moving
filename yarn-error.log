@@ -1,0 +1,56 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-tiny-popover
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;D:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\hyla5\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\hyla5\AppData\Local\Programs\Python\Python38\;C:\Users\hyla5\AppData\Local\Microsoft\WindowsApps;C:\Users\hyla5\AppData\Roaming\npm;C:\Users\hyla5\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\hyla5\AppData\Local\GitHubDesktop\bin;C:\Users\hyla5\AppData\Roaming\Composer\vendor\bin;C:\Program Files\heroku\bin;C:\Users\hyla5\AppData\Local\Yarn\bin;C:\Program Files\MongoDB\Server\4.2\bin;
+
+Yarn version: 
+  1.19.0
+
+Node version: 
+  10.16.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, copyfile 'C:\Users\hyla5\AppData\Local\Yarn\Cache\v5\npm-express-4.17.1-4491fc38605cf51f8629d39c2b5d026f98a4c134\node_modules\express\lib\request.js' -> 'D:\WORK\InProgress\moving\node_modules\express\lib\request.js'
+
+npm manifest: 
+  {
+  	"name": "moving",
+  	"version": "1.0.0",
+  	"description": "This is moving app to deliver anything to anywhere",
+  	"main": "index.js",
+  	"scripts": {
+  		"start": "run-p start:**",
+  		"start:lambda": "netlify-lambda serve api -t 30",
+  		"start:app": "cd client && yarn start",
+  		"build": "run-p build:**",
+  		"build:lambda": "netlify-lambda build api",
+  		"build:app": "cd client && yarn build",
+  		"deploy:draft": "netlify deploy --dir=client/build --functions=functions",
+  		"deploy:prod": "netlify deploy --dir=client/build --functions=functions --prod"
+  	},
+  	"engines": {
+  		"node": "^10.13.0"
+  	},
+  	"author": "Hong",
+  	"license": "ISC",
+  	"dependencies": {
+  		"body-parser": "^1.19.0",
+  		"express": "^4.17.1",
+  		"onfleet": "^2.0.4",
+  		"serverless-http": "^2.3.2"
+  	},
+  	"devDependencies": {
+  		"netlify-lambda": "^1.3.3",
+  		"npm-run-all": "^4.1.5"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

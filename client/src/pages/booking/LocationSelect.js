@@ -1,19 +1,11 @@
 /*global google*/
+/*global gtag*/
 import React, { Component } from "react";
-import { withStyles, Button, Container, Grid, Box } from "@material-ui/core";
+import { Button, Container, Grid, Box } from "@material-ui/core";
 import LocationField from "../../components/LocationField";
 import Map from "../../components/Map";
 import { connect } from "react-redux";
 import { locationSelected, setStep } from "../../redux/actions";
-
-const styles = {
-	root: {
-		padding: "10px 20px",
-		background: "var(--colorBg)",
-		borderRadius: 10,
-		marginBottom: 16
-	}
-};
 
 class LocationSelect extends Component {
 	constructor(props) {
@@ -21,46 +13,54 @@ class LocationSelect extends Component {
 
 		this.state = {
 			directions: null,
-			distance: 0,
-			mapOffset: 230
+			mapOffset: 230,
+			pickup: props.location ? props.location.pickup : null,
+			destination: props.location ? props.location.destination : null,
+			distance: props.location ? props.location.distance : 0,
 		};
 
 		this.locationPanel = React.createRef();
-	}
 
-	componentWillMount() {
-		const { location, setStep } = this.props;
-		setStep(2);
-		this.setState({
-			pickup: location ? location.pickup : null,
-			destination: location ? location.destination : null
-		});
+		props.setStep(2);
+		if (props.location) {
+			this.showDirection(props.location.pickup, props.location.destination);
+		}
 	}
 
 	componentDidMount() {
+		gtag("js", new Date());
+		gtag("config", "UA-156726482-1");
+		if (window.fbq != null) {
+			window.fbq("track", "PageView");
+		}
+
 		if (this.locationPanel.current) {
 			this.setState({
-				mapOffset: this.locationPanel.current.offsetHeight + 142
+				mapOffset: this.locationPanel.current.offsetHeight + 142,
 			});
 		}
 	}
 
-	showDirection = () => {
-		const { pickup, destination } = this.state;
+	showDirection = (pickup, destination) => {
 		if (pickup && destination) {
-			this.getDistance(pickup.coordinate, destination.coordinate);
+			// this.getDistance(pickup.coordinate, destination.coordinate);
 			const directionsService = new google.maps.DirectionsService();
 			directionsService.route(
 				{
 					origin: pickup.coordinate,
 					destination: destination.coordinate,
-					travelMode: google.maps.TravelMode.DRIVING
+					travelMode: google.maps.TravelMode.DRIVING,
 				},
 				(result, status) => {
 					if (status === google.maps.DirectionsStatus.OK) {
 						this.setState({
-							directions: result
+							directions: result,
 						});
+						let distance =
+							result && result.routes && result.routes.length && result.routes[0].legs && result.routes[0].legs.length && result.routes[0].legs[0].distance
+								? result.routes[0].legs[0].distance.value
+								: 0;
+						this.setState({ distance: distance });
 					} else {
 						console.error(`error fetching directions ${result}`);
 					}
@@ -69,30 +69,36 @@ class LocationSelect extends Component {
 		}
 	};
 
-	getDistance = (pickup, destination) => {
-		const latLong1 = new google.maps.LatLng(pickup.lat, pickup.lng);
-		const latLong2 = new google.maps.LatLng(destination.lat, destination.lng);
-		const distance = google.maps.geometry.spherical.computeDistanceBetween(
-			latLong1,
-			latLong2
-		);
-		this.setState({
-			distance: distance
-		});
+	getDistance = async (pickup, destination) => {
+		// await fetch(
+		// 	`https://maps.googleapis.com/maps/api/distancematrix/json?origins=
+		// 	${pickup.lat},${pickup.lng}&destinations=${destination.lat},${destination.lng}&key=${process.env.REACT_APP_GOOGLE_KEY}`
+		// ).then((res) => {
+		// 	console.log(res);
+		// });
+		// const latLong1 = new google.maps.LatLng(pickup.lat, pickup.lng);
+		// const latLong2 = new google.maps.LatLng(destination.lat, destination.lng);
+		// const distance = google.maps.geometry.spherical.computeDistanceBetween(
+		// 	latLong1,
+		// 	latLong2
+		// );
+		// this.setState({
+		// 	distance: distance
+		// });
 	};
 
-	pickupSelected = data => {
+	pickupSelected = (data) => {
 		this.setState({
-			pickup: data
+			pickup: data,
 		});
-		this.showDirection();
+		this.showDirection(data, this.state.destination);
 	};
 
-	destinationSelected = data => {
+	destinationSelected = (data) => {
 		this.setState({
-			destination: data
+			destination: data,
 		});
-		this.showDirection();
+		this.showDirection(this.state.pickup, data);
 	};
 
 	onClickContinue = () => {
@@ -107,27 +113,25 @@ class LocationSelect extends Component {
 		this.props.locationSelected({
 			pickup: pickup,
 			destination: destination,
-			distance: distance
+			distance: distance,
 		});
 	};
 
 	render() {
-		const { classes } = this.props;
+		const { location } = this.props;
 		const { directions, pickup, destination, distance, mapOffset } = this.state;
 		return (
 			<div>
 				<Container maxWidth="md" ref={this.locationPanel}>
-					<Grid container justify="center" className={classes.root}>
+					<Grid container justify="center" className="location-panel">
 						<Grid item sm={5} xs={12} style={{ paddingRight: 20 }}>
-							<LocationField
-								direction={0}
-								placeSelected={this.pickupSelected}
-							/>
+							<LocationField direction={0} placeSelected={this.pickupSelected} address={location && location.pickup ? location.pickup.address : null} />
 						</Grid>
 						<Grid item sm={5} xs={12} style={{ paddingRight: 20 }}>
 							<LocationField
 								direction={1}
 								placeSelected={this.destinationSelected}
+								address={location && location.destination ? location.destination.address : null}
 							/>
 						</Grid>
 						<Grid item sm={2} xs={12}>
@@ -135,7 +139,7 @@ class LocationSelect extends Component {
 								fullWidth
 								className="lug-btn"
 								style={{
-									marginTop: 8
+									marginTop: 8,
 								}}
 								onClick={this.onClickContinue}
 							>
@@ -160,16 +164,13 @@ class LocationSelect extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	location: state.selectedLocation
+const mapStateToProps = (state) => ({
+	location: state.selectedLocation,
 });
 
-const mapDispatchToProps = dispatch => ({
-	locationSelected: location => dispatch(locationSelected(location)),
-	setStep: value => dispatch(setStep(value))
+const mapDispatchToProps = (dispatch) => ({
+	locationSelected: (location) => dispatch(locationSelected(location)),
+	setStep: (value) => dispatch(setStep(value)),
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(withStyles(styles)(LocationSelect));
+export default connect(mapStateToProps, mapDispatchToProps)(LocationSelect);

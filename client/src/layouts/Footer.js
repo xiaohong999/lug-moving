@@ -3,7 +3,7 @@ import { Container, Grid } from "@material-ui/core";
 import {
 	FaFacebookSquare,
 	// FaTwitterSquare,
-	FaInstagram
+	FaInstagram,
 	// FaPinterest
 } from "react-icons/fa";
 import { FiMessageCircle } from "react-icons/fi";
@@ -23,12 +23,7 @@ export default class Footer extends Component {
 											Email: <a href="mailto:hello@lug.nz">hello@lug.nz</a>
 										</div>
 										<div className="chat">
-											<FiMessageCircle
-												size={26}
-												color="var(--colorSecondary)"
-												style={{ paddingRight: 5 }}
-											/>{" "}
-											LiveChat
+											<FiMessageCircle size={26} color="var(--colorSecondary)" style={{ paddingRight: 5 }} /> LiveChat
 										</div>
 									</div>
 								</Grid>
@@ -42,6 +37,9 @@ export default class Footer extends Component {
 									<div className="link">
 										<a href="/how">How it works</a>
 									</div>
+									<div className="link">
+										<a href="#">Become a driver</a>
+									</div>
 									<div className="link book">
 										<a href="/book">Book now</a>
 									</div>
@@ -53,12 +51,8 @@ export default class Footer extends Component {
 								<img src="images/logo.png" alt="lug.nz" />
 							</div>
 							<div style={{ marginTop: 10 }}>
-								<a href="https://facebook.com/">
-									<FaFacebookSquare
-										size={30}
-										color="white"
-										style={{ marginRight: 20 }}
-									/>
+								<a href="https://www.facebook.com/Lug-On-Demand-Delivery-106636040868727">
+									<FaFacebookSquare size={30} color="white" style={{ marginRight: 20 }} />
 								</a>
 								{/* <a href="https://twitter.com/">
 									<FaTwitterSquare
@@ -67,7 +61,7 @@ export default class Footer extends Component {
 										style={{ marginRight: 20 }}
 									/>
 								</a> */}
-								<a href="https://instagram.com/">
+								<a href="https://www.instagram.com/lug.nz/">
 									<FaInstagram size={30} color="white" />
 								</a>
 								{/* <a href="https://pinterest.com/">

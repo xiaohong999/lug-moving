@@ -29,13 +29,13 @@ export default class Category extends Component {
 					className="icon"
 					src={category.iconNormal}
 					alt="icon"
-					style={{ display: this.state.hover ? "none" : "block" }}
+					style={{ display: this.state.hover || selected ? "none" : "block" }}
 				/>
 				<img
 					className="icon-focus"
 					src={category.iconActive}
 					alt="icon"
-					style={{ display: this.state.hover ? "block" : "none" }}
+					style={{ display: this.state.hover || selected ? "block" : "none" }}
 				/>
 				<div className="name">{category.name}</div>
 				<MdArrowForward className="arrow" />

@@ -1,34 +1,39 @@
 import * as Type from "./types";
 
-export const categorySelected = category => ({
+export const categorySelected = (category) => ({
 	type: Type.CATEGORY_SELECTED,
-	category: category
+	category: category,
 });
-export const locationSelected = location => ({
+export const serviceSelected = (service) => ({
+	type: Type.SERVICE_SELECTED,
+	service: service,
+});
+export const locationSelected = (location) => ({
 	type: Type.LOCATION_SELECTED,
-	location: location
+	location: location,
 });
-export const vehicleSelected = vehicle => ({
+export const vehicleSelected = (vehicle, discount) => ({
 	type: Type.VEHICLE_SELECTED,
-	vehicle: vehicle
+	vehicle: vehicle,
+	discount: discount,
 });
 export const dateSelected = (vehicle, date, time) => ({
 	type: Type.DATE_SELECTED,
 	vehicle: vehicle,
-	date: { date: date, time: time }
+	date: { date: date, time: time },
 });
 
-export const itemsSaved = items => ({
+export const itemsSaved = (items) => ({
 	type: Type.ITEMS_SAVED,
-	items: items
+	items: items,
 });
 
-export const contactInfoSaved = info => ({
+export const contactInfoSaved = (info) => ({
 	type: Type.CONTACT_INFO_SAVED,
-	info: info
+	info: info,
 });
 
-export const setStep = value => ({
+export const setStep = (value) => ({
 	type: Type.SET_STEP,
-	value: value
+	value: value,
 });
